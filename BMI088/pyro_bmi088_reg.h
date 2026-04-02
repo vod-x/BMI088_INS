@@ -1,16 +1,15 @@
 #ifndef BMI088_REG_H
 #define BMI088_REG_H
 
-
 #define BMI_SPI_RD_MASK 0x80
 #define BMI_SPI_WR_MASK 0x7F
 
 /******************************** ACC_CHIP_ID *********************************/
-/* Address of accelerometer chip ID registers and values. This reg is read-only and 
-   contains the chip ID of the accelerometer. Its value should be checked whether it 
-   matches the expected value during initialization to ensure proper communication 
-   with the sensor. */
-#define BMI088_ACC_CHIP_ID 0x00 
+/* Address of accelerometer chip ID registers and values. This reg is read-only
+   and contains the chip ID of the accelerometer. Its value should be checked
+   whether it matches the expected value during initialization to ensure proper
+   communication with the sensor. */
+#define BMI088_ACC_CHIP_ID 0x00
 #define BMI088_ACC_CHIP_ID_VALUE 0x1E
 /******************************** ACC_CHIP_ID *********************************/
 
@@ -43,8 +42,8 @@
 #define BMI088_TEMP_L 0x23
 
 /********************************  ACC_CONF ***********************************/
-/* Addrees of accelerometer configuration(OSR and ODR) register and 
-   corresponding values. The value of OSR and ODR will influence the 
+/* Addrees of accelerometer configuration(OSR and ODR) register and
+   corresponding values. The value of OSR and ODR will influence the
    bandwidth(3dB) of the accelerometer low pass filter in the chip.
  * =============================================================================
  * | ODR [Hz] | Normal (acc_bwp=0xA) | OSR2 (acc_bwp=0x9) | OSR4 (acc_bwp=0x8) |
@@ -78,7 +77,6 @@
 #define BMI088_ACC_800_HZ (0xB << BMI088_ACC_ODR_SHFITS)
 #define BMI088_ACC_1600_HZ (0xC << BMI088_ACC_ODR_SHFITS)
 /********************************  ACC_CONF ***********************************/
-
 
 /*******************************  ACC_RANGE ***********************************/
 /* Address of accelerometer range register and corresponding values */
@@ -126,20 +124,26 @@
 #define BMI088_INT_MAP_DATA 0x58
 /* Mapping data ready intrruppt to IO2 */
 #define BMI088_ACC_INT2_DRDY_INTERRUPT_SHFITS 0x6
-#define BMI088_ACC_INT2_DRDY_INTERRUPT (0x1 << BMI088_ACC_INT2_DRDY_INTERRUPT_SHFITS)
+#define BMI088_ACC_INT2_DRDY_INTERRUPT                                         \
+  (0x1 << BMI088_ACC_INT2_DRDY_INTERRUPT_SHFITS)
 /* Mapping FIFO watermark interrupt to IO2 */
 #define BMI088_ACC_INT2_FWM_INTERRUPT_SHFITS 0x5
-#define BMI088_ACC_INT2_FWM_INTERRUPT (0x1 << BMI088_ACC_INT2_FWM_INTERRUPT_SHFITS) 
+#define BMI088_ACC_INT2_FWM_INTERRUPT                                          \
+  (0x1 << BMI088_ACC_INT2_FWM_INTERRUPT_SHFITS)
 /* Mapping FIFO full interrupt to IO2 */
 #define BMI088_ACC_INT2_FIFO_FULL_INTERRUPT_SHFITS 0x4
-#define BMI088_ACC_INT2_FIFO_FULL_INTERRUPT (0x1 << BMI088_ACC_INT2_FIFO_FULL_INTERRUPT_SHFITS)
+#define BMI088_ACC_INT2_FIFO_FULL_INTERRUPT                                    \
+  (0x1 << BMI088_ACC_INT2_FIFO_FULL_INTERRUPT_SHFITS)
 /* Same as INT2 */
 #define BMI088_ACC_INT1_DRDY_INTERRUPT_SHFITS 0x2
-#define BMI088_ACC_INT1_DRDY_INTERRUPT (0x1 << BMI088_ACC_INT1_DRDY_INTERRUPT_SHFITS)
+#define BMI088_ACC_INT1_DRDY_INTERRUPT                                         \
+  (0x1 << BMI088_ACC_INT1_DRDY_INTERRUPT_SHFITS)
 #define BMI088_ACC_INT1_FWM_INTERRUPT_SHFITS 0x1
-#define BMI088_ACC_INT1_FWM_INTERRUPT (0x1 << BMI088_ACC_INT1_FWM_INTERRUPT_SHFITS)
-#define BMI088_ACC_INT1_FIFO_FULL_INTERRUPT_SHFITS 0x0      
-#define BMI088_ACC_INT1_FIFO_FULL_INTERRUPT (0x1 << BMI088_ACC_INT1_FIFO_FULL_INTERRUPT_SHFITS)
+#define BMI088_ACC_INT1_FWM_INTERRUPT                                          \
+  (0x1 << BMI088_ACC_INT1_FWM_INTERRUPT_SHFITS)
+#define BMI088_ACC_INT1_FIFO_FULL_INTERRUPT_SHFITS 0x0
+#define BMI088_ACC_INT1_FIFO_FULL_INTERRUPT                                    \
+  (0x1 << BMI088_ACC_INT1_FIFO_FULL_INTERRUPT_SHFITS)
 /******************************* ACC_INT_MAP **********************************/
 
 #define BMI088_ACC_SELF_TEST 0x6D
@@ -148,7 +152,7 @@
 #define BMI088_ACC_SELF_TEST_NEGATIVE_SIGNAL 0x09
 
 /******************************* ACC_PWR_CONF *********************************/
-/* Address of accelerometer power configuration registers and values. Determine 
+/* Address of accelerometer power configuration registers and values. Determine
    the power mode of the accelerometer. */
 #define BMI088_ACC_PWR_CONF 0x7C
 #define BMI088_ACC_PWR_SUSPEND_MODE 0x03
@@ -156,7 +160,7 @@
 /******************************* ACC_PWR_CONF *********************************/
 
 /******************************* ACC_PWR_CTRL *********************************/
-/* Address of accelerometer power control registers and values. Determine 
+/* Address of accelerometer power control registers and values. Determine
    whether the accelerometer is enabled or disabled. */
 #define BMI088_ACC_PWR_CTRL 0x7D
 #define BMI088_ACC_ENABLE_ACC_OFF 0x00
@@ -167,9 +171,9 @@
 #define BMI088_ACC_SOFTRESET_VALUE 0xB6
 
 /******************************* GYRO_CHIP_ID *********************************/
-/* Address of gyroscope chip ID registers and values. This reg is read-only and 
-   contains the chip ID of the gyroscope. Its value should be checked whether it 
-   matches the expected value during initialization to ensure proper 
+/* Address of gyroscope chip ID registers and values. This reg is read-only and
+   contains the chip ID of the gyroscope. Its value should be checked whether it
+   matches the expected value during initialization to ensure proper
    communication with the sensor. */
 #define BMI088_GYRO_CHIP_ID 0x00
 #define BMI088_GYRO_CHIP_ID_VALUE 0x0F
@@ -187,8 +191,8 @@
 #define BMI088_GYRO_DYDR (0x1 << BMI088_GYRO_DYDR_SHFITS)
 
 /****************************** GYRO_RANGE ************************************/
-/* Address of gyroscope range registers and values. The range is +- value. 
-   Larger range is, less sensitive the gyroscope is. 
+/* Address of gyroscope range registers and values. The range is +- value.
+   Larger range is, less sensitive the gyroscope is.
    Unit: dps (degrees per second) */
 #define BMI088_GYRO_RANGE 0x0F
 #define BMI088_GYRO_RANGE_SHFITS 0x0
@@ -216,8 +220,8 @@
 /**************************** GYRO_BANDWIDTH **********************************/
 
 /******************************* GYRO_LPM *************************************/
-/* Address of gyroscope power modes and its values. Note that only swtiching 
-   bwtween normal mode and suspend mode is allowed, it is not possible to 
+/* Address of gyroscope power modes and its values. Note that only swtiching
+   bwtween normal mode and suspend mode is allowed, it is not possible to
    switch between suspend mode and deep suspend mode. */
 #define BMI088_GYRO_LPM1 0x11
 
@@ -230,7 +234,7 @@
 #define BMI088_GYRO_SOFTRESET_VALUE 0xB6
 
 /***************************** GYRO_INT_CTRL **********************************/
-/* Address of gyroscope interrupt control registers and values. Type of 
+/* Address of gyroscope interrupt control registers and values. Type of
    interrupt include DRDY(data ready) and FIFO*/
 #define BMI088_GYRO_INT_CTRL 0x15
 #define BMI088_GYRO_INT_DRDY_SHFITS 0x7
@@ -243,7 +247,7 @@
 
 /*********************** GYRO_INT3_INT4_IO_CONF *******************************/
 /* Address of gyroscope interrupt 3 and 4 IO configuration registers and values.
-   Include the mode is PP(push-pull) or OD(open-drain), the valid level is high 
+   Include the mode is PP(push-pull) or OD(open-drain), the valid level is high
    or low. */
 #define BMI088_GYRO_INT3_INT4_IO_CONF 0x16
 #define BMI088_GYRO_INT4_GPIO_MODE_SHFITS 0x3
@@ -261,7 +265,7 @@
 /*********************** GYRO_INT3_INT4_IO_CONF *******************************/
 
 /*********************** GYRO_INT3_INT4_IO_MAP *******************************/
-/* Address of gyroscope interrupt 3 and 4 IO mapping registers and values. 
+/* Address of gyroscope interrupt 3 and 4 IO mapping registers and values.
    Determine the mapping of interrupt to INT3 or INT4. */
 #define BMI088_GYRO_INT3_INT4_IO_MAP 0x18
 #define BMI088_GYRO_DRDY_IO_INT3_SHFITS 0x0

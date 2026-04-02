@@ -16,8 +16,9 @@ enum error_t
     bmi088_drv();
     ~bmi088_drv();
     error_t init();
+    error_t reset();
 
-// private:
+private:
     error_t read_write_byte(uint8_t tx_data, uint8_t* rx_data);
 
     error_t read_acc_reg(uint8_t reg_addr, uint8_t* data);

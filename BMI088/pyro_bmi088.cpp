@@ -55,13 +55,17 @@ bmi088_drv::error_t bmi088_drv::init()
     /* 1. wait a moment to ensure power up the sensor */
     BARE_DELAY(1);
 
-    /* 2. give a up edge to the cs port of the accelerometer, make it work on spi
-       mode. */
+    /* 2. give a up edge to the cs port of the accelerometer, make it work on
+       spi mode. */
     BMI088_CS_ACC_L();
     BMI088_CS_ACC_H();
 
-    /* 3. Self-test */
-    /* 3.1 Make sure the communication with the accelerometer is working */
+    /* 3. Soft-reset to clear any previous state and configuration */
+    ret = reset();
+    CHECK_RET(ret);
+
+    /* 4. Self-test to check whether the sensor is functioning correctly */
+    /* 4.1 Make sure the communication with the accelerometer is working */
     ret = read_acc_reg(BMI088_ACC_CHIP_ID, &chip_id);
     CHECK_RET(ret);
     if (chip_id != BMI088_ACC_CHIP_ID_VALUE)
@@ -74,12 +78,20 @@ bmi088_drv::error_t bmi088_drv::init()
     {
         return INIT_ERROR;
     }
-    /* 4. Init accelerometer */
-    /* 4.1 Write cfg of accelerometer */
+    ret = read_acc_reg(BMI088_ACC_ERR_REG, &chip_id);
+    CHECK_RET(ret);
+    /* 5. Init accelerometer */
+
+    /* 5.1 Write cfg of accelerometer */
     for(uint8_t i = 0; i < BMI088_ACC_CFG_NUM; i++)
     {
         ret = write_acc_reg(bmi088_acc_cfg[i][0], bmi088_acc_cfg[i][1]);
         CHECK_RET(ret);
+        /* Add a delay between writes and read, make sure the sensor has enough
+         * time to process the configuration */
+        BARE_DELAY(1);
+        /* Read back the configuration to verify, if it is not equal expected
+         * value, set error code */
         ret = read_acc_reg(bmi088_acc_cfg[i][0], &temp);
         CHECK_RET(ret);
         if(temp != bmi088_acc_cfg[i][1])
@@ -91,11 +103,16 @@ bmi088_drv::error_t bmi088_drv::init()
     {
         return ERROR;
     }
-    /* 4.2 Write cfg of gyroscope */
+    /* 5.2 Write cfg of gyroscope */
     for(uint8_t i = 0; i < BMI088_GYRO_CFG_NUM; i++)
     {
         ret = write_gyro_reg(bmi088_gyro_cfg[i][0], bmi088_gyro_cfg[i][1]);
         CHECK_RET(ret);
+        /* Add a delay between writes and read, make sure the sensor has enough
+         * time to process the configuration */
+        BARE_DELAY(1);
+        /* Read back the configuration to verify, if it is not equal expected
+         * value, set error code */
         ret = read_gyro_reg(bmi088_gyro_cfg[i][0], &temp);
         CHECK_RET(ret);
         if(temp != bmi088_gyro_cfg[i][1])
@@ -107,7 +124,19 @@ bmi088_drv::error_t bmi088_drv::init()
     {
         return ERROR;
     }
+    return OK;
+}
 
+bmi088_drv::error_t bmi088_drv::reset()
+{
+    error_t ret;
+    ret = write_acc_reg(BMI088_ACC_SOFTRESET, BMI088_ACC_SOFTRESET_VALUE);
+    CHECK_RET(ret);
+    ret = write_gyro_reg(BMI088_GYRO_SOFTRESET, BMI088_GYRO_SOFTRESET_VALUE);
+    CHECK_RET(ret);
+    BARE_DELAY(1);
+    BMI088_CS_ACC_L();
+    BMI088_CS_ACC_H();
     return OK;
 }
 
