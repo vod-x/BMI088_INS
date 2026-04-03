@@ -67,7 +67,8 @@ static uint8_t bmi088_acc_cfg[BMI088_ACC_CFG_NUM][3] = {
        Because we will use pin1 as a interrupt io, so we set it is output, 
        push-pull mode. The valid level is depend on the interrupt type. Set 
        high lelvel in using rising edge, set low level in using falling edge. */
-    {BMI088_INT1_IO_CTRL, BMI088_ACC_INT1_IO_OUTPUT | BMI088_ACC_INT1_GPIO_PP | BMI088_ACC_INT1_GPIO_HIGH, bmi088_acc_error_code_t::ACC_IO1},
+    // {BMI088_INT1_IO_CTRL, BMI088_ACC_INT1_IO_OUTPUT | BMI088_ACC_INT1_GPIO_PP | BMI088_ACC_INT1_GPIO_HIGH, bmi088_acc_error_code_t::ACC_IO1},
+    {BMI088_INT1_IO_CTRL, 0x00, bmi088_acc_error_code_t::ACC_IO1},
     /* Set interrupt mapping. Configure the interrupt signal(data ready, fifo 
        watermark, fifo full) to output in IO1 or IO2. In this project, we use
        dada ready int, so map it to IO1. */
@@ -86,7 +87,7 @@ static uint8_t bmi088_gyro_cfg[BMI088_GYRO_CFG_NUM][3] = {
     /* Set ODR(output data rate). Value of ODR will influence the bandwidth(3dB)
      of the gyroscope low pass filter in the chip. Detailed correspondence can 
      be found in "pyro_bmi088_reg.h" */
-    {BMI088_GYRO_BANDWIDTH, BMI088_GYRO_BANDWIDTH_MUST_Set | BMI088_GYRO_2000_532_HZ, bmi088_gyro_error_code_t::GYRO_BANDWIDTH},
+    {BMI088_GYRO_BANDWIDTH, BMI088_GYRO_BANDWIDTH_MUST_Set | BMI088_GYRO_100_32_HZ, bmi088_gyro_error_code_t::GYRO_BANDWIDTH},
     /* Set gyroscope range. It is +- value. Larger range is, less sensitive the 
        gyroscope is. */
     {BMI088_GYRO_RANGE, BMI088_GYRO_2000, bmi088_gyro_error_code_t::GYRO_RANGE},

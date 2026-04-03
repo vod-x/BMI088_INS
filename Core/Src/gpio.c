@@ -1,3 +1,12 @@
+/*
+ * @Author: vod vod_x@outlook.com
+ * @Date: 2026-03-31 17:23:39
+ * @LastEditors: vod vod_x@outlook.com
+ * @LastEditTime: 2026-04-03 21:12:13
+ * @Description: 
+ * 
+ * Copyright (c) 2026 by PeiYangRobot, All Rights Reserved. 
+ */
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -62,13 +71,17 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PE10 PE12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_12;
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*AnalogSwitch Config */
   HAL_SYSCFG_AnalogSwitchConfig(SYSCFG_SWITCH_PC3, SYSCFG_SWITCH_PC3_CLOSE);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
