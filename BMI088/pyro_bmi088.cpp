@@ -25,47 +25,34 @@ using namespace pyro;
 extern "C" {
 
 uint8_t test_buf[32];
-float time = 0.0f;
+float run_time = 0.0f;
+float do_time = 0.0f;
 uint64_t cnt = 0;
 void main_tread(void)
 {
 bmi088_drv bmi088;
     bmi088.init();
-    // dwt_drv_t::init(550); // Initialize DWT with 480 MHz CPU frequency
+    dwt_drv_t::init(550); // Initialize DWT with 480 MHz CPU frequency
     while (1)
     {
-        uint8_t temp;
-        // bmi088.read_gyro_reg(BMI088_GYRO_INT_STAT_1, &temp);
-        // if(temp != 0)
-        // {
-        //     cnt++;
-        // }
-        // static uint8_t level, last_level;
-        // level = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_12);
-        // if(last_level != level)
-        // {
-        //     cnt++;
-        // }
-        // if(1 == level)
-        // {
-        //     cnt++;
-        // }
-        // last_level = level;
+        do_time = (dwt_drv_t::get_timeline_s());
+        // HAL_Delay(1);
         /* do nothing */
     }
 }
 }
 
-// void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-// {
-//     float record_time = dwt_drv_t::get_timeline_ms();
-//     if(GPIO_Pin == GPIO_PIN_12)
-//     {
-//         /* do nothing */
-//     }
-//     time += (dwt_drv_t::get_timeline_ms() - record_time);
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    float record_time = dwt_drv_t::get_timeline_ms();
+    if(GPIO_Pin == GPIO_PIN_12)
+    {
+        /* do nothing */
+    }
+    run_time += (dwt_drv_t::get_timeline_ms() - record_time);
+    cnt++;
 
-// }
+}
 
 
 bmi088_drv::bmi088_drv()

@@ -87,7 +87,7 @@ static uint8_t bmi088_gyro_cfg[BMI088_GYRO_CFG_NUM][3] = {
     /* Set ODR(output data rate). Value of ODR will influence the bandwidth(3dB)
      of the gyroscope low pass filter in the chip. Detailed correspondence can 
      be found in "pyro_bmi088_reg.h" */
-    {BMI088_GYRO_BANDWIDTH, BMI088_GYRO_BANDWIDTH_MUST_Set | BMI088_GYRO_100_32_HZ, bmi088_gyro_error_code_t::GYRO_BANDWIDTH},
+    {BMI088_GYRO_BANDWIDTH, BMI088_GYRO_BANDWIDTH_MUST_Set | BMI088_GYRO_2000_532_HZ, bmi088_gyro_error_code_t::GYRO_BANDWIDTH},
     /* Set gyroscope range. It is +- value. Larger range is, less sensitive the 
        gyroscope is. */
     {BMI088_GYRO_RANGE, BMI088_GYRO_2000, bmi088_gyro_error_code_t::GYRO_RANGE},

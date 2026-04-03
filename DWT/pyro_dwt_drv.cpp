@@ -14,6 +14,7 @@
 #include "pyro_dwt_drv.h"
 #include "main.h" // For CoreDebug, DWT registers
 
+    uint32_t _cyccnt_round_count;             // 32-bit counter overflow count
 namespace pyro
 {
 /**
@@ -142,7 +143,7 @@ dwt_drv_t::time_t dwt_drv_t::get_timeline()
 void dwt_drv_t::update_cycle_count()
 {
     const volatile uint32_t cnt_now = DWT->CYCCNT;
-    if (cnt_now < _cyccnt_last)
+     if (cnt_now < _cyccnt_last && (_cyccnt_last - cnt_now) > 0x80000000U)
     {
         _cyccnt_round_count++;
     }
